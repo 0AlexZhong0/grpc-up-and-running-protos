@@ -10,6 +10,7 @@ service OrderManagement {
     rpc getOrder(google.protobuf.StringValue) returns (Order);
     rpc searchOrders(SearchOrderQuery) returns (stream Order);
     rpc updateOrders(stream Order) returns (google.protobuf.StringValue);
+    rpc processOrders(stream google.protobuf.StringValue) returns (stream CombinedShipment);
 }
 
 message Order {
@@ -22,4 +23,10 @@ message Order {
 
 message SearchOrderQuery {
     string query = 1;
+}
+
+message CombinedShipment {
+    string id = 1;
+    string status = 2;
+    repeated Order ordersList = 3;
 }
